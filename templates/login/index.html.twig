@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Login Form!{% endblock %}
+
+{% block body %}
+        This friendly message is coming from:
+        <ul>
+            <li>Your controller at <code>{{ app.request.attributes.get('_controller') }}</code></li>
+            <li>Your template at <code>F:/symfony/admin_api/templates/login/index.html.twig</code></li>
+        </ul>
+
+        <h2>Login Form</h2>
+        <form action="{{path('app_login')}}" method="post">
+            <div>
+                <label for="username">Логин</label>
+                <input type="text" id="username" name="username" required autofocus />
+            </div>
+
+            <div>
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
