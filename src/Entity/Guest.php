@@ -5,6 +5,8 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Get;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GuestRepository;
+
 
 #[ORM\Entity(repositoryClass: GuestRepository::class)]
 #[ApiResource(
