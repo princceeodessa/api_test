@@ -2,10 +2,27 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            uriTemplate: '/api/users',
+            normalizationContext: ['groups' => ['users:read']]
+        ),
+        new Get(
+            uriTemplate: '/api/events/{id}',
+            normalizationContext: ['groups' => ['users:read']]
+        ),
+    ],
+    normalizationContext: ['groups' => ['users:read']],
+    denormalizationContext: ['groups' => ['users:write']]
+)]
 class Users implements UserInterface
 {
     #[ORM\Id]

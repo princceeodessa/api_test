@@ -1,13 +1,26 @@
 <?php
-
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\GuestRepository;
 
 #[ORM\Entity(repositoryClass: GuestRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            uriTemplate: '/api/guest',
+            normalizationContext: ['groups' => ['guest:read']]
+        ),
+        new Get(
+            uriTemplate: '/api/events/{id}',
+            normalizationContext: ['groups' => ['guest:read']]
+        ),
+    ],
+    normalizationContext: ['groups' => ['guest:read']],
+    denormalizationContext: ['groups' => ['guest:write']]
+)]
 class Guest
 {
     #[ORM\Id]
@@ -30,23 +43,28 @@ class Guest
         return $this->id;
     }
 
+    public function __toString(): string
+    {
+        return "Guest: " . $this->Name . ", Presence: " . ($this->Presence ? 'Yes' : 'No');
+    }
+
     public function getName(): ?string
     {
         return $this->Name;
     }
 
-    public function setName(string $Name): static
+    public function setName(string $Name): self
     {
         $this->Name = $Name;
         return $this;
     }
 
-    public function isPresence(): ?bool
+    public function getPresence(): ?bool
     {
         return $this->Presence;
     }
 
-    public function setPresence(bool $Presence): static
+    public function setPresence(bool $Presence): self
     {
         $this->Presence = $Presence;
         return $this;
@@ -57,7 +75,7 @@ class Guest
         return $this->event;
     }
 
-    public function setEvent(?Event $event): static
+    public function setEvent(?Event $event): self
     {
         $this->event = $event;
         return $this;

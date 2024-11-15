@@ -1,13 +1,28 @@
 <?php
-
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TableRepository;
 
 #[ORM\Entity(repositoryClass: TableRepository::class)]
-#[ApiResource]
+#[ORM\Table(name: "tables")]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            uriTemplate: '/api/table',
+            normalizationContext: ['groups' => ['table:read']]
+        ),
+        new Get(
+            uriTemplate: '/api/events/{id}',
+            normalizationContext: ['groups' => ['table:read']]
+        ),
+    ],
+    normalizationContext: ['groups' => ['table:read']],
+    denormalizationContext: ['groups' => ['table:write']]
+)]
 class Table
 {
     #[ORM\Id]
@@ -16,13 +31,13 @@ class Table
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $table_number = null;
+    private ?string $tableNumber = null;
 
     #[ORM\Column(type: 'text')]
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $max_capacity = null;
+    private ?int $maxCapacity = null;
 
     public function getId(): ?int
     {
@@ -31,12 +46,12 @@ class Table
 
     public function getTableNumber(): ?string
     {
-        return $this->table_number;
+        return $this->tableNumber;
     }
 
-    public function setTableNumber(string $table_number): static
+    public function setTableNumber(string $tableNumber): static
     {
-        $this->table_number = $table_number;
+        $this->tableNumber = $tableNumber;
         return $this;
     }
 
@@ -53,12 +68,12 @@ class Table
 
     public function getMaxCapacity(): ?int
     {
-        return $this->max_capacity;
+        return $this->maxCapacity;
     }
 
-    public function setMaxCapacity(int $max_capacity): static
+    public function setMaxCapacity(int $maxCapacity): static
     {
-        $this->max_capacity = $max_capacity;
+        $this->maxCapacity = $maxCapacity;
         return $this;
     }
 }
