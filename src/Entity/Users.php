@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Get;
+use App\Repository\UsersRepository;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[ApiResource(
