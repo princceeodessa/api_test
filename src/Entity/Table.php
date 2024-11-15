@@ -16,7 +16,7 @@ use App\Repository\TableRepository;
             normalizationContext: ['groups' => ['table:read']]
         ),
         new Get(
-            uriTemplate: '/api/events/{id}',
+            uriTemplate: '/api/table/{id}',
             normalizationContext: ['groups' => ['table:read']]
         ),
     ],
