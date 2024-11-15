@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
             normalizationContext: ['groups' => ['guest:read']]
         ),
         new Get(
-            uriTemplate: '/api/guest/{id}',
+        uriTemplate: '/api/guest/{id}',
             normalizationContext: ['groups' => ['guest:read']]
         ),
     ],
