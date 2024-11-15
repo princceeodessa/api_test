@@ -16,7 +16,7 @@ use ApiPlatform\Metadata\Get;
             normalizationContext: ['groups' => ['users:read']]
         ),
         new Get(
-            uriTemplate: '/api/events/{id}',
+            uriTemplate: '/api/users/{id}',
             normalizationContext: ['groups' => ['users:read']]
         ),
     ],
